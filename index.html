@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maxvel</title>
-<meta name="description" content="Maxvel, 15. Python, HTML und 3D-Druck.">
+<meta name="description" content="Maxvel, 15. Python, HTML and 3D printing.">
 <meta name="theme-color" content="#0a0c11">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%91%BE%3C/text%3E%3C/svg%3E">
 <style>
@@ -112,7 +112,7 @@ body{overflow-x:hidden}
 <div id="toast" role="status"></div>
 
 <script>
-/* Maxvel, Seite selbst gebaut. */
+/* Maxvel, site built by hand. */
 const term = document.getElementById('term');
 const toast = document.getElementById('toast');
 let fast = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -137,14 +137,14 @@ const out = {
   skills: `<ul class="files">
              <li><span class="n">python/</span><span class="dim"></span></li>
              <li><span class="n">html/</span><span class="dim"></span></li>
-             <li><span class="n">3d-druck/</span><span class="dim"></span></li>
+             <li><span class="n">3d-printing/</span><span class="dim"></span></li>
              <li><span class="n">drones/</span><span class="dim"></span></li>
            </ul>`,
   socials:`<div class="links">
              <a class="btn" href="https://www.tiktok.com/@maxvel187" target="_blank" rel="noopener">${icon.tiktok}<span><small>tiktok</small><b>@maxvel187</b></span></a>
              <a class="btn" href="https://www.instagram.com/maxvel187_" target="_blank" rel="noopener">${icon.insta}<span><small>instagram</small><b>@maxvel187_</b></span></a>
              <a class="btn" href="https://github.com/MAXVEL187" target="_blank" rel="noopener">${icon.github}<span><small>github</small><b>MAXVEL187</b></span></a>
-             <button class="btn" type="button" data-copy="qwet.x" title="Klicken zum Kopieren">${icon.discord}<span><small>discord</small><b>qwet.x</b></span></button>
+             <button class="btn" type="button" data-copy="qwet.x" title="Click to copy">${icon.discord}<span><small>discord</small><b>qwet.x</b></span></button>
            </div>`,
   contact:`<div class="links">
              <a class="btn" href="mailto:contact@maxvel.top">${icon.mail}<span><small>mail</small><b>contact@maxvel.top</b></span></a>
@@ -220,7 +220,7 @@ function raw(text, cls = ''){
   return d;
 }
 
-/* SSH-Login-Intro: ssh -p 187 maxvel@top, Passwort, Linux-Banner, clear */
+/* SSH login intro: ssh -p 187 maxvel@top, password, Linux banner, clear */
 async function boot(){
   await typeCmd(PSL, 'ssh -p 187 maxvel@top');
   await sleep(800);
@@ -276,7 +276,7 @@ function echo(text){
 function prompt(){
   const w = document.createElement('div');
   w.className = 'inp';
-  w.innerHTML = PS + '<input type="text" aria-label="Befehl eingeben" autocomplete="off" autocapitalize="off" spellcheck="false">';
+  w.innerHTML = PS + '<input type="text" aria-label="Enter a command" autocomplete="off" autocapitalize="off" spellcheck="false">';
   term.appendChild(w);
   const input = w.querySelector('input');
   input.addEventListener('keydown', e => {
@@ -289,7 +289,7 @@ function prompt(){
   return { input, w };
 }
 
-/* Vorschau der Befehle als Typewriter im leeren Eingabefeld */
+/* Typewriter preview of the commands in the empty input */
 async function previewCmds(input){
   const list = ['help', 'whoami', 'about', 'skills', 'socials', 'contact', 'neofetch', 'uptime', 'date', 'pwd', 'clear'];
   if (matchMedia('(prefers-reduced-motion: reduce)').matches){ input.placeholder = list.join('  '); return; }
@@ -312,7 +312,7 @@ function handle(v, w){
   else {
     echo(v);
     if (aliases[c]) print(out[aliases[c]]);
-    else if (c === 'help') print('<p>Befehle: <span class="hl">whoami about skills socials contact</span></p><p class="dim"><span class="hl">ls pwd date uname uptime neofetch echo clear</span></p>');
+    else if (c === 'help') print('<p>Commands: <span class="hl">whoami about skills socials contact</span></p><p class="dim"><span class="hl">ls pwd date uname uptime neofetch echo clear</span></p>');
     else if (c === 'pwd') print('<p>/home/maxvel</p>');
     else if (c === 'date') print('<p>' + fmtDate(new Date()) + '</p>');
     else if (c === 'uname') print('<p>Linux</p>');
@@ -320,23 +320,23 @@ function handle(v, w){
     else if (c === 'uptime') print('<p> ' + hms(new Date()) + ' up 187 days,  4:20,  1 user,  load average: 0.18, 0.18, 0.87</p>');
     else if (c === 'neofetch') print(out.neofetch);
     else if (c === 'echo' || c.startsWith('echo ')) print('<p></p>').querySelector('p').textContent = v.slice(5);
-    else if (c === 'sudo' || c.startsWith('sudo ')) print('<p>Netter Versuch. Hier bist du nur Gast.</p>');
-    else if (c === 'python') print('<p class="dim">&gt;&gt;&gt; print("hallo welt")<br><span style="color:var(--ok)">hallo welt</span></p>');
-    else if (c === 'exit') print('<p>Du kannst das Fenster nicht schließen. Ich hab keinen Knopf eingebaut.</p>');
-    else if (c !== '') print('<p>command not found: <span class="hl"></span>. Tipp: help</p>').querySelector('.hl').textContent = v;
+    else if (c === 'sudo' || c.startsWith('sudo ')) print('<p>Nice try. You are just a guest here.</p>');
+    else if (c === 'python') print('<p class="dim">&gt;&gt;&gt; print("hello world")<br><span style="color:var(--ok)">hello world</span></p>');
+    else if (c === 'exit') print('<p>You cannot close this window. I did not build a button for it.</p>');
+    else if (c !== '') print('<p>command not found: <span class="hl"></span>. Tip: help</p>').querySelector('.hl').textContent = v;
   }
   ui = prompt();
   ui.input.focus({ preventScroll: true });
   scroll();
 }
 
-/* Klick auf Discord-Button kopiert den Namen */
+/* Clicking the Discord button copies the name */
 document.addEventListener('click', e => {
   const cp = e.target.closest('[data-copy]');
   if (cp){
     const t = cp.dataset.copy;
     (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
-      () => say('Discord-Name kopiert: ' + t), () => say('Discord: ' + t));
+      () => say('Discord name copied: ' + t), () => say('Discord: ' + t));
   }
 });
 function say(m){
@@ -344,7 +344,7 @@ function say(m){
   clearTimeout(say.t); say.t = setTimeout(() => toast.classList.remove('on'), 2200);
 }
 
-/* Fenster verschiebbar (an der Titelleiste ziehen, Doppelklick = zurück) */
+/* Draggable window (drag the title bar, double-click to reset) */
 (() => {
   const win = document.querySelector('.win'), bar = win.querySelector('.bar');
   let x = 0, y = 0, x0, y0, sx, sy, bx, by, on = false;
