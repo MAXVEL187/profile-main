@@ -116,8 +116,6 @@ body{overflow-x:hidden}
 const term = document.getElementById('term');
 const toast = document.getElementById('toast');
 let fast = matchMedia('(prefers-reduced-motion: reduce)').matches;
-addEventListener('pointerdown', () => { fast = true; }, { once: true });
-addEventListener('keydown', e => { if (e.target.tagName !== 'INPUT') fast = true; });
 
 const sleep = ms => new Promise(r => setTimeout(r, fast ? 0 : ms));
 const PS = '<span class="ps">maxvel<b>@</b>top:~$</span> ';
