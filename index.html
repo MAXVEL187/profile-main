@@ -473,7 +473,7 @@ function say(m){
 
 (async () => {
   await boot();
-  for (const k of ['whoami', 'fplay', 'about', 'skills', 'socials', 'contact']) await run(k);
+  for (const k of ['whoami', 'about', 'fplay', 'skills', 'socials', 'contact']) await run(k);
   ui = prompt();
   if (matchMedia('(hover: hover)').matches) ui.input.focus({ preventScroll: true });
 })();
