@@ -68,6 +68,42 @@ body{
 .files li{display:flex;gap:12px;flex-wrap:wrap}
 .files .n{color:var(--acc2);min-width:9ch}
 
+/* Music player */
+.pl{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:4px}
+.cover{position:relative;width:112px;height:112px;flex:none;background:#131826;border:1px solid var(--line);box-shadow:4px 4px 0 #05060a;overflow:hidden;display:grid;place-items:center;color:var(--dim);font-size:34px}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pl-body{flex:1;min-width:230px}
+.pl-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.pl-title{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.01em;line-height:1.2}
+.pl-sub{font-size:13px}
+.eq{display:flex;gap:3px;align-items:flex-end;height:22px;flex:none}
+.eq i{width:4px;height:100%;background:var(--acc2);transform-origin:bottom;transform:scaleY(.12)}
+.pl.on .eq i{animation:eq .8s ease-in-out infinite alternate}
+.eq i:nth-child(2){animation-duration:.55s!important;animation-delay:-.2s!important}
+.eq i:nth-child(3){animation-duration:.95s!important;animation-delay:-.5s!important}
+.eq i:nth-child(4){animation-duration:.65s!important;animation-delay:-.1s!important}
+@keyframes eq{from{transform:scaleY(.15)}to{transform:scaleY(1)}}
+.pl input[type=range]{-webkit-appearance:none;appearance:none;display:block;width:100%;height:8px;margin:14px 0 6px;cursor:pointer;
+  background:linear-gradient(90deg,var(--acc),var(--acc2)) 0 0/var(--p,0%) 100% no-repeat,#1a2030;border-radius:0}
+.pl input[type=range]::-webkit-slider-runnable-track{height:8px;background:transparent}
+.pl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;margin-top:-3px;background:#fff;border:2px solid var(--acc);border-radius:0;box-shadow:2px 2px 0 #05060a}
+.pl input[type=range]::-moz-range-track{background:transparent;height:8px}
+.pl input[type=range]::-moz-range-thumb{width:10px;height:10px;background:#fff;border:2px solid var(--acc);border-radius:0;box-shadow:2px 2px 0 #05060a}
+.pl-times{display:flex;justify-content:space-between;font-size:12px}
+.pl-ctl{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.pb{width:38px;height:38px;display:grid;place-items:center;padding:0;background:#131826;border:1px solid var(--line);border-radius:6px;box-shadow:3px 3px 0 #05060a;cursor:pointer;transition:transform .12s,box-shadow .12s,border-color .12s}
+.pb:hover{border-color:var(--acc);transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--acc)}
+.pb:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--acc)}
+.pb.big{width:46px;height:46px;border-color:var(--acc)}
+.pb svg{width:20px;height:20px;stroke:var(--acc);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pb .f{fill:var(--acc)}
+.pb.act{border-color:var(--acc2)} .pb.act svg{stroke:var(--acc2)}
+.pl .ic-pause{display:none} .pl.on .ic-pause{display:block} .pl.on .ic-play{display:none}
+.pb .ic-x{display:none} .pb.muted .ic-x{display:inline} .pb.muted .ic-wave{display:none}
+.vol-w{display:flex;align-items:center;gap:8px;margin-left:auto}
+.pl .vol{width:80px;margin:0}
+@media (max-width:520px){.cover{width:84px;height:84px;font-size:26px}.vol-w{margin-left:0}}
+
 /* Links */
 .links{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
 .btn{
@@ -166,6 +202,32 @@ out.neofetch = `<div class="nf">
 <span class="hl">Hobbies</span>: 3d printing, drones</pre>
 </div>`;
 
+out.fplay = `<div class="pl">
+  <div class="cover"><span>♪</span><img src="assets/music.png" alt="MUSIK1 cover" onerror="this.remove()"></div>
+  <div class="pl-body">
+    <div class="pl-top">
+      <div><div class="pl-title">MUSIK1</div><div class="pl-sub dim">music.mp3 - <span class="pl-state">ready</span></div></div>
+      <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    </div>
+    <input class="seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Seek">
+    <div class="pl-times dim"><span class="t-cur">0:00</span><span class="t-dur">-:--</span></div>
+    <div class="pl-ctl">
+      <button class="pb b-back" type="button" title="Back 10s" aria-label="Back 10 seconds"><svg viewBox="0 0 24 24"><path d="M11 6l-7 6 7 6zM20 6l-7 6 7 6z"/></svg></button>
+      <button class="pb big b-play" type="button" title="Play / Pause" aria-label="Play or pause">
+        <svg class="ic-play" viewBox="0 0 24 24"><polygon class="f" points="7,4 20,12 7,20"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24"><rect class="f" x="6" y="4" width="4" height="16"/><rect class="f" x="14" y="4" width="4" height="16"/></svg>
+      </button>
+      <button class="pb b-fwd" type="button" title="Forward 10s" aria-label="Forward 10 seconds"><svg viewBox="0 0 24 24"><path d="M13 6l7 6-7 6zM4 6l7 6-7 6z"/></svg></button>
+      <button class="pb b-loop" type="button" title="Loop" aria-label="Loop" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg></button>
+      <div class="vol-w">
+        <button class="pb b-mute" type="button" title="Mute" aria-label="Mute"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path class="ic-wave" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="ic-x" d="M17 9l5 6M22 9l-5 6"/></svg></button>
+        <input class="vol" type="range" min="0" max="100" step="1" value="80" aria-label="Volume">
+      </div>
+    </div>
+  </div>
+  <audio preload="metadata" src="assets/music.mp3"></audio>
+</div>`;
+
 const p2 = n => String(n).padStart(2, '0');
 const hms = d => p2(d.getHours()) + ':' + p2(d.getMinutes()) + ':' + p2(d.getSeconds());
 function fmtDate(d){
@@ -176,8 +238,8 @@ function fmtDate(d){
     d.getDate() + ' ' + hms(d) + ' ' + tz + d.getFullYear();
 }
 
-const aliases = { about:'about', 'cat about.txt':'about', skills:'skills', ls:'skills', 'ls -l':'skills', 'ls -la':'skills', 'ls skills':'skills', 'ls skills/':'skills', socials:'socials', links:'socials', contact:'contact', mail:'contact', whoami:'whoami' };
-const cmdNames = { whoami:'whoami', about:'cat about.txt', skills:'ls skills/', socials:'./socials.sh --all', contact:'mail --target maxvel' };
+const aliases = { fplay:'fplay', 'fplay music.mp3':'fplay', about:'about', 'cat about.txt':'about', skills:'skills', ls:'skills', 'ls -l':'skills', 'ls -la':'skills', 'ls skills':'skills', 'ls skills/':'skills', socials:'socials', links:'socials', contact:'contact', mail:'contact', whoami:'whoami' };
+const cmdNames = { whoami:'whoami', fplay:'fplay music.mp3', about:'cat about.txt', skills:'ls skills/', socials:'./socials.sh --all', contact:'mail --target maxvel' };
 
 function scroll(){ scrollTo({ top: document.body.scrollHeight, behavior: fast ? 'auto' : 'smooth' }); }
 
@@ -207,7 +269,8 @@ async function typeCmd(ps, text, tight){
 
 async function run(key, text){
   await typeCmd(PS, text || cmdNames[key]);
-  print(out[key]);
+  const el = print(out[key]);
+  if (key === 'fplay') initPlayer(el);
   await sleep(450);
 }
 
@@ -291,7 +354,7 @@ function prompt(){
 
 /* Typewriter preview of the commands in the empty input */
 async function previewCmds(input){
-  const list = ['help', 'whoami', 'about', 'skills', 'socials', 'contact', 'neofetch', 'uptime', 'date', 'pwd', 'clear'];
+  const list = ['help', 'whoami', 'about', 'skills', 'socials', 'contact', 'fplay music.mp3', 'neofetch', 'uptime', 'date', 'pwd', 'clear'];
   if (matchMedia('(prefers-reduced-motion: reduce)').matches){ input.placeholder = list.join('  '); return; }
   const wait = ms => new Promise(r => setTimeout(r, ms));
   let i = 0;
@@ -304,6 +367,46 @@ async function previewCmds(input){
   }
 }
 
+/* Music player logic (no autoplay, the visitor presses play) */
+document.addEventListener('play', e => {
+  document.querySelectorAll('audio').forEach(x => { if (x !== e.target) x.pause(); });
+}, true);
+
+function initPlayer(root){
+  const $ = q => root.querySelector(q);
+  const a = $('audio'), pl = $('.pl'), seek = $('.seek'), vol = $('.vol'), st = $('.pl-state');
+  const tc = $('.t-cur'), td = $('.t-dur');
+  const mm = t => isFinite(t) ? Math.floor(t / 60) + ':' + String(Math.floor(t % 60)).padStart(2, '0') : '-:--';
+  const fill = el => el.style.setProperty('--p', (el.value / el.max * 100) + '%');
+  let scrub = false;
+  a.volume = 0.8; fill(seek); fill(vol);
+
+  $('.b-play').addEventListener('click', () => { a.paused ? a.play().catch(() => {}) : a.pause(); });
+  $('.b-back').addEventListener('click', () => { a.currentTime = Math.max(0, a.currentTime - 10); });
+  $('.b-fwd').addEventListener('click', () => { if (a.duration) a.currentTime = Math.min(a.duration, a.currentTime + 10); });
+  const loop = $('.b-loop');
+  loop.addEventListener('click', () => { a.loop = !a.loop; loop.classList.toggle('act', a.loop); loop.setAttribute('aria-pressed', a.loop); });
+  const mute = $('.b-mute');
+  mute.addEventListener('click', () => { a.muted = !a.muted; mute.classList.toggle('muted', a.muted); });
+  vol.addEventListener('input', () => { a.volume = vol.value / 100; a.muted = false; mute.classList.remove('muted'); fill(vol); });
+
+  seek.addEventListener('pointerdown', () => { scrub = true; });
+  addEventListener('pointerup', () => { scrub = false; });
+  seek.addEventListener('input', () => {
+    fill(seek);
+    if (a.duration){ const t = seek.value / seek.max * a.duration; a.currentTime = t; tc.textContent = mm(t); }
+  });
+
+  a.addEventListener('loadedmetadata', () => { td.textContent = mm(a.duration); });
+  a.addEventListener('timeupdate', () => {
+    tc.textContent = mm(a.currentTime);
+    if (!scrub && a.duration){ seek.value = a.currentTime / a.duration * seek.max; fill(seek); }
+  });
+  a.addEventListener('play', () => { pl.classList.add('on'); st.textContent = 'playing'; });
+  a.addEventListener('pause', () => { pl.classList.remove('on'); st.textContent = a.ended ? 'finished' : 'paused'; });
+  a.addEventListener('error', () => { st.textContent = 'error: assets/music.mp3 not found'; });
+}
+
 let ui;
 function handle(v, w){
   const c = v.toLowerCase();
@@ -311,8 +414,8 @@ function handle(v, w){
   if (c === 'clear'){ term.innerHTML = ''; }
   else {
     echo(v);
-    if (aliases[c]) print(out[aliases[c]]);
-    else if (c === 'help') print('<p>Commands: <span class="hl">whoami about skills socials contact</span></p><p class="dim"><span class="hl">ls pwd date uname uptime neofetch echo clear</span></p>');
+    if (aliases[c]){ const el = print(out[aliases[c]]); if (aliases[c] === 'fplay') initPlayer(el); }
+    else if (c === 'help') print('<p>Commands: <span class="hl">whoami about fplay skills socials contact</span></p><p class="dim"><span class="hl">ls pwd date uname uptime neofetch echo clear</span></p>');
     else if (c === 'pwd') print('<p>/home/maxvel</p>');
     else if (c === 'date') print('<p>' + fmtDate(new Date()) + '</p>');
     else if (c === 'uname') print('<p>Linux</p>');
@@ -370,7 +473,7 @@ function say(m){
 
 (async () => {
   await boot();
-  for (const k of ['whoami', 'about', 'skills', 'socials', 'contact']) await run(k);
+  for (const k of ['whoami', 'fplay', 'about', 'skills', 'socials', 'contact']) await run(k);
   ui = prompt();
   if (matchMedia('(hover: hover)').matches) ui.input.focus({ preventScroll: true });
 })();
